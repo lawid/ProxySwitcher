@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxySwitcher", "ProxySwitcher\ProxySwitcher.csproj", "{61DBFD1C-1B2E-451B-8D79-11208DE24421}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxySwitcherForms", "ProxySwitcherForms\ProxySwitcherForms.csproj", "{BA0A0362-CE96-47B2-862C-86D1DCEA39C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriggerPlayground", "TriggerPlayground\TriggerPlayground.csproj", "{F6C65F12-02E3-4EE1-9346-3C7DF291AB7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61DBFD1C-1B2E-451B-8D79-11208DE24421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61DBFD1C-1B2E-451B-8D79-11208DE24421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61DBFD1C-1B2E-451B-8D79-11208DE24421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61DBFD1C-1B2E-451B-8D79-11208DE24421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA0A0362-CE96-47B2-862C-86D1DCEA39C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA0A0362-CE96-47B2-862C-86D1DCEA39C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA0A0362-CE96-47B2-862C-86D1DCEA39C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA0A0362-CE96-47B2-862C-86D1DCEA39C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6C65F12-02E3-4EE1-9346-3C7DF291AB7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C65F12-02E3-4EE1-9346-3C7DF291AB7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6C65F12-02E3-4EE1-9346-3C7DF291AB7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6C65F12-02E3-4EE1-9346-3C7DF291AB7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
