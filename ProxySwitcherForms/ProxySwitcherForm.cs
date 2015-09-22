@@ -128,12 +128,13 @@ namespace ProxySwitcherForms
             {
                 if (this.Visible)
                 {
-                    this.Hide();
+                    this.Hide();                    
                 }
                 else
                 {
                     this.Show();
                     this.WindowState = FormWindowState.Normal;
+                    Activate();
                 }
             }
         }
