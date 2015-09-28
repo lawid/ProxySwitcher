@@ -16,11 +16,13 @@ namespace ProxySwitcher
         public const int INTERNET_OPTION_SETTINGS_CHANGED = 39;
         public const int INTERNET_OPTION_REFRESH = 37;
         static bool settingsReturn, refreshReturn;
-        static string KProxyEnable = "ProxyEnable", KProxyServer = "ProxyServer";
+        const string KEY_PROXY_ENABLE = "ProxyEnable", KEY_PROXY_SERVER = "ProxyServer";
 
-        private RegistryKey getCurrentUserRegistry()
+        private RegistryKey registry;
+
+        public ProxyController()
         {
-            return Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings", true);
+            registry = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings", true);
         }
 
         private void PropagateInternetSetOption()
@@ -31,28 +33,22 @@ namespace ProxySwitcher
 
         public void PrintCurrentSettings()
         {
-            RegistryKey registry = getCurrentUserRegistry();
-
-            string proxenabled = registry.GetValue(KProxyEnable).ToString();
-            string proxserv = registry.GetValue(KProxyServer).ToString();
+            string proxenabled = registry.GetValue(KEY_PROXY_ENABLE).ToString();
+            string proxserv = registry.GetValue(KEY_PROXY_SERVER).ToString();
 
             Console.WriteLine("enabled " + proxenabled + " current proxy is " + proxserv);
         }
 
         public bool IsEnabled()
         {
-            RegistryKey registry = getCurrentUserRegistry();
-
-            int proxenabled = (int) registry.GetValue(KProxyEnable);
+            int proxenabled = (int) registry.GetValue(KEY_PROXY_ENABLE);
 
             return Convert.ToBoolean(proxenabled);
         }
 
         public bool SetEnabled(bool active)
         {
-            RegistryKey registry = getCurrentUserRegistry();
-
-            registry.SetValue(KProxyEnable, Convert.ToInt32(active));
+            registry.SetValue(KEY_PROXY_ENABLE, Convert.ToInt32(active));
 
             PropagateInternetSetOption();
 
@@ -61,17 +57,14 @@ namespace ProxySwitcher
 
         public string GetCurrentProxy()
         {
-            RegistryKey registry = getCurrentUserRegistry();
-
-            string proxserv = registry.GetValue(KProxyServer).ToString();
+            string proxserv = registry.GetValue(KEY_PROXY_SERVER).ToString();
 
             return proxserv;
         }
 
         public bool SetProxy(string proxy)
         {
-            RegistryKey registry = getCurrentUserRegistry();
-            registry.SetValue(KProxyServer, proxy);
+            registry.SetValue(KEY_PROXY_SERVER, proxy);
 
             PropagateInternetSetOption();
 

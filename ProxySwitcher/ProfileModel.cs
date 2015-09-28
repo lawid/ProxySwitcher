@@ -5,36 +5,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProxySwitcher.Properties;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace ProxySwitcher
 {
     public class ProfileModel
     {
-        private BindingList<Profile> proxies = new BindingList<Profile>();
+        private BindingList<Profile> _proxies = new BindingList<Profile>();
 
-        public BindingList<Profile> Proxies { get { return proxies; } }
+        public BindingList<Profile> Proxies { get { return _proxies; } }
 
         public ProfileModel()
         {
-            if (Settings.Default.Profiles != null)
+            if (Settings.Default.ProfilesJson != null)
             {
-                foreach (var profile in Settings.Default.Profiles)
+                JArray profiles = JArray.Parse(Settings.Default.ProfilesJson);
+                foreach (string profile in profiles)
                 {
-                    proxies.Add(new Profile(profile));
+                    Profile p = JsonConvert.DeserializeObject<Profile>(profile);
+                    _proxies.Add(p);
                 }
             }
         }
-
-        public void AddProfile(Profile profile)
-        {
-            proxies.Add(profile);
-        }
-
-        public void RemoveProfile(Profile selected)
-        {
-            proxies.Remove(selected);
-        }
-
+        
         public Profile FindCurrentProxy(string proxy)
         {
             return Proxies.FirstOrDefault(p => proxy == p.Proxy);
@@ -42,14 +36,16 @@ namespace ProxySwitcher
 
         public void SaveProfiles()
         {
-            Settings.Default.Profiles.Clear();
+            JArray profilesArray = new JArray();
             foreach (var profile in Proxies)
             {
-                Settings.Default.Profiles.Add(profile.ToString());
+                profilesArray.Add(JsonConvert.SerializeObject(profile));
             }
+
+            Settings.Default.ProfilesJson = profilesArray.ToString(Formatting.None, null);
             Settings.Default.Save();
         }
 
-        
+
     }
 }

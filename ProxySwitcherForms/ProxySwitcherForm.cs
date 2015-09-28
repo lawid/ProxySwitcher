@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using Microsoft.Win32;
 using ProxySwitcher;
 using ProxySwitcherForms.Properties;
 
@@ -22,8 +15,6 @@ namespace ProxySwitcherForms
         public ProxySwitcherForm()
         {
             InitializeComponent();
-
-            
 
             model.Proxies.ListChanged += ProxiesOnListChanged;
             RefreshListBox();
@@ -46,6 +37,7 @@ namespace ProxySwitcherForms
         private void Read_Click(object sender, EventArgs e)
         {
             ctrl.PrintCurrentSettings();
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(model.Proxies.First()));
         }
 
         private void Set_Click(object sender, EventArgs e)
@@ -64,7 +56,7 @@ namespace ProxySwitcherForms
             ProfileForm profileForm = new ProfileForm();
             profileForm.ShowDialog();
             Profile profile = profileForm.GetProfile();
-            model.AddProfile(profile);
+            model.Proxies.Add(profile);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -79,7 +71,7 @@ namespace ProxySwitcherForms
         private void btnRemove_Click(object sender, EventArgs e)
         {
             Profile selected = listBox1.SelectedItem as Profile;
-            model.RemoveProfile(selected);
+            model.Proxies.Remove(selected);
         }
 
         private void btnEnabled_Click(object sender, EventArgs e)
@@ -143,11 +135,5 @@ namespace ProxySwitcherForms
         {
             Application.Exit();
         }
-
-
-
-
-
-
     }
 }
