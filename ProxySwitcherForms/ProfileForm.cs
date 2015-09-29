@@ -21,13 +21,12 @@ namespace ProxySwitcherForms
         private string httpPort, httpsPort, ftpPort, socksPort;
 
         private bool unifiedProtocolProxy;
-
+        
 
         public ProfileForm()
         {
 
             InitializeComponent();
-
         }
 
         public ProfileForm(Profile profile)
@@ -45,28 +44,27 @@ namespace ProxySwitcherForms
         {
             ParseData(new ProxyController().GetCurrentProxy());
             LoadData();
+        }        
+
+        private void checkBoxUseForAllProtocols_CheckedChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("checkedchanged");
+            unifiedProtocolProxy = checkBoxUseForAllProtocols.Checked;
+            UpdateUnifiedFields();
         }
 
-        private string EncodeProxy()
+        private void UpdateUnifiedFields()
         {
-            // TODO if empty string omit! //TODO checkbox use for all protocols
-            string proxy = "";
-            if (unifiedProtocolProxy)
-            {
-                proxy = httpProxy + ":" + httpPort;
-            }
-            else
-            {
-                proxy = "http=" + httpProxy + ":" + httpPort + ";";
-                proxy += "https=" + httpsProxy + ":" + httpsPort + ";";
-                proxy += "ftp=" + ftpProxy + ":" + ftpPort + ";";
+            bool isEnabled = !unifiedProtocolProxy;
 
-                if (socksProxy.Length != 0) proxy += "socks=" + socksProxy + ":" + socksPort + ";";
+            textBoxSecureAddress.Enabled = isEnabled;
+            textBoxSecurePort.Enabled = isEnabled;
 
-                proxy = proxy.Substring(0, proxy.Length - 1);
-            }
+            textBoxFtpAddress.Enabled = isEnabled;
+            textBoxFtpPort.Enabled = isEnabled;
 
-            return proxy;
+            textBoxSocksAddress.Enabled = isEnabled;
+            textBoxSocksPort.Enabled = isEnabled;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -101,6 +99,8 @@ namespace ProxySwitcherForms
 
             textBoxSocksAddress.Text = socksProxy;
             textBoxSocksPort.Text = socksPort;
+
+            UpdateUnifiedFields();
         }
 
         public void RetrieveData()
@@ -134,27 +134,79 @@ namespace ProxySwitcherForms
             else
             {
                 unifiedProtocolProxy = false;
-                if (parts.Length >= 3)
+
+                for (int i = 0; parts.Length >= i+3; i+=3)
                 {
-                    httpProxy = parts[1];
-                    httpPort = parts[2];
+                    string protocol = parts[i];
+                    string address = parts[i + 1];
+                    string port = parts[i + 2];
+
+                    switch(protocol)
+                    {
+                        case "http":
+                            httpProxy = address;
+                            httpPort = port;
+                            break;
+                        case "https":
+                            httpsProxy = address;
+                            httpsPort = port;
+                            break;
+                        case "ftp":
+                            ftpProxy = address;
+                            ftpPort = port;
+                            break;
+                        case "socks":
+                            socksProxy = address;
+                            socksPort = port;
+                            break;
+                    }
                 }
-                if (parts.Length >= 6)
-                {
-                    httpsProxy = parts[4];
-                    httpsPort = parts[5];
-                }
-                if (parts.Length >= 9)
-                {
-                    ftpProxy = parts[7];
-                    ftpPort = parts[8];
-                }
-                if (parts.Length >= 12)
-                {
-                    socksProxy = parts[10];
-                    socksPort = parts[11];
-                }
+
+                
+                //if (parts.Length >= 3)
+                //{
+                //    httpProxy = parts[1];
+                //    httpPort = parts[2];
+                //}
+                //if (parts.Length >= 6)
+                //{
+                //    httpsProxy = parts[4];
+                //    httpsPort = parts[5];
+                //}
+                //if (parts.Length >= 9)
+                //{
+                //    ftpProxy = parts[7];
+                //    ftpPort = parts[8];
+                //}
+                //if (parts.Length >= 12)
+                //{
+                //    socksProxy = parts[10];
+                //    socksPort = parts[11];
+                //}
             }
+        }
+
+        private string EncodeProxy()
+        {
+            // TODO if empty string omit! //TODO checkbox use for all protocols
+            string proxy = "";
+            if (unifiedProtocolProxy)
+            {
+                proxy = httpProxy + ":" + httpPort;
+            }
+            else
+            {
+                proxy = "http=" + httpProxy + ":" + httpPort + ";";
+                if(httpsProxy.Length > 0) proxy += "https=" + httpsProxy + ":" + httpsPort + ";";
+                if(ftpProxy.Length > 0) proxy += "ftp=" + ftpProxy + ":" + ftpPort + ";";
+
+                if (socksProxy.Length > 0) proxy += "socks=" + socksProxy + ":" + socksPort + ";";
+
+                proxy = proxy.Substring(0, proxy.Length - 1);
+            }
+
+            Console.WriteLine("Proxy is " + proxy);
+            return proxy;
         }
 
         public Profile GetProfile()
