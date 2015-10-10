@@ -5,5 +5,11 @@
     <Setting Name="ProfilesJson" Type="System.String" Scope="User">
       <Value Profile="(Default)">[]</Value>
     </Setting>
+    <Setting Name="TriggersWifi" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[]</Value>
+    </Setting>
+    <Setting Name="TriggersIpMask" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[]</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

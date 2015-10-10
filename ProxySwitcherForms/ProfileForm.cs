@@ -74,7 +74,8 @@ namespace ProxySwitcherForms
 
             mProfile.Proxy = EncodeProxy();
             mProfile.Title = textBoxProfile.Text;
-            Dispose();
+            DialogResult = DialogResult.OK;
+            Dispose();            
         }
 
         private void buttonClose_Click(object sender, EventArgs e)

@@ -63,10 +63,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Listeners\WiFiConnectionChangedListener.cs" />
-    <Compile Include="Listeners\NetworkAddressChangedListener.cs" />
-    <Compile Include="Listeners\IProfileTrigger.cs" />
-    <Compile Include="ProfileTriggers.cs" />
+    <Compile Include="TriggerListener.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="ProfileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -83,6 +80,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ProxyController.cs" />
+    <Compile Include="Trigger.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

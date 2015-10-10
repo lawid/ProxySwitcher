@@ -4,13 +4,15 @@ using System.Linq;
 using System.Windows.Forms;
 using ProxySwitcher;
 using ProxySwitcherForms.Properties;
+using ProxySwitcher.Triggers;
 
 namespace ProxySwitcherForms
 {
     public partial class ProxySwitcherForm : Form
     {
-        private ProfileModel model = new ProfileModel();
+        private ProfileModel model = ProfileModel.Instance;
         private ProxyController ctrl = new ProxyController();
+        private TriggerListener triggers = new TriggerListener();
 
         public ProxySwitcherForm()
         {
@@ -42,7 +44,7 @@ namespace ProxySwitcherForms
 
         private void Set_Click(object sender, EventArgs e)
         {
-            Profile selected = listBox1.SelectedItem as Profile;
+            Profile selected = profilesListBox.SelectedItem as Profile;
             ctrl.SetProxy(selected.Proxy);
         }
 
@@ -54,23 +56,28 @@ namespace ProxySwitcherForms
         private void addBtn_Click(object sender, EventArgs e)
         {
             ProfileForm profileForm = new ProfileForm();
-            profileForm.ShowDialog();
-            Profile profile = profileForm.GetProfile();
-            model.Proxies.Add(profile);
+            DialogResult addStatus = profileForm.ShowDialog();
+            
+            if (addStatus == DialogResult.OK)
+            {
+                Profile profile = profileForm.GetProfile();
+                model.Proxies.Add(profile);
+                //RefreshListBox();
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            ProfileForm profileForm = new ProfileForm(listBox1.SelectedItem as Profile);
+            ProfileForm profileForm = new ProfileForm(profilesListBox.SelectedItem as Profile);
             profileForm.ShowDialog();
-            listBox1.Refresh();
+            profilesListBox.Refresh();
             RefreshListBox();
             // todo changed?
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            Profile selected = listBox1.SelectedItem as Profile;
+            Profile selected = profilesListBox.SelectedItem as Profile;
             model.Proxies.Remove(selected);
         }
 
@@ -92,15 +99,15 @@ namespace ProxySwitcherForms
         private void RefreshEnabled()
         {
             string label = (ctrl.IsEnabled()) ? "Disable" : "Enable";
-            btnEnabled.Text = label;
+            proxyEnableBtn.Text = label;
             toolStripMenuItemEnabled.Text = label;
         }
 
         private void RefreshListBox()
         {
-            listBox1.DataSource = null;
-            listBox1.DataSource = model.Proxies;
-            listBox1.DisplayMember = "Title";
+            profilesListBox.DataSource = null;
+            profilesListBox.DataSource = model.Proxies;
+            profilesListBox.DisplayMember = "Title";
         }
 
         private void ProxySwitcherForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -120,7 +127,7 @@ namespace ProxySwitcherForms
             {
                 if (this.Visible)
                 {
-                    this.Hide();                    
+                    this.Hide();
                 }
                 else
                 {
@@ -134,6 +141,26 @@ namespace ProxySwitcherForms
         private void toolStripMenuItemExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void enableTriggersToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("check changed to " + enableTriggersToolStripMenuItem.Checked);
+        }
+
+        private void triggersAddBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void triggersEditBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void triggersRemoveBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

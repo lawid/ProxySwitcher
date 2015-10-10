@@ -34,5 +34,29 @@ namespace ProxySwitcher.Properties {
                 this["ProfilesJson"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[]")]
+        public string TriggersWifi {
+            get {
+                return ((string)(this["TriggersWifi"]));
+            }
+            set {
+                this["TriggersWifi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[]")]
+        public string TriggersIpMask {
+            get {
+                return ((string)(this["TriggersIpMask"]));
+            }
+            set {
+                this["TriggersIpMask"] = value;
+            }
+        }
     }
 }

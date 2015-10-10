@@ -12,11 +12,14 @@ namespace ProxySwitcher
 {
     public class ProfileModel
     {
+        private static ProfileModel _instance = new ProfileModel();
+        public static ProfileModel Instance { get { return _instance; } }
+
         private BindingList<Profile> _proxies = new BindingList<Profile>();
 
         public BindingList<Profile> Proxies { get { return _proxies; } }
 
-        public ProfileModel()
+        private ProfileModel()
         {
             if (Settings.Default.ProfilesJson != null)
             {
@@ -28,7 +31,7 @@ namespace ProxySwitcher
                 }
             }
         }
-        
+
         public Profile FindCurrentProxy(string proxy)
         {
             return Proxies.FirstOrDefault(p => proxy == p.Proxy);
