@@ -6,20 +6,22 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.NetworkInformation;
 
-namespace ProxySwitcher
+namespace ProxySwitcher.Triggers
 {
     public class TriggerListener
     {
         public delegate void ProxyTriggeredEventHandler(Profile profile, string reason);
         public event ProxyTriggeredEventHandler OnProxyTriggered;
 
-        private ProfileModel profileModel = ProfileModel.Instance;
+        private ProfileModel profiles = ProfileModel.Instance;
+        private TriggerModel triggers = TriggerModel.Instance;
         private Wifi wifi;
-        private bool wifiMatch, addressMatch;
-        private string wifiSsid, address;
-        private Profile candidate;
 
-        public BindingList<Trigger> WiFiTriggers { get; private set; }
+
+
+
+        private WifiStatus wifiState;
+        private string wifiSsid;
 
         public TriggerListener()
         {
@@ -30,17 +32,69 @@ namespace ProxySwitcher
             // Listen to address changes
             NetworkChange.NetworkAddressChanged += new NetworkAddressChangedEventHandler(NetworkAddressChanged);
             Console.WriteLine("Listening...");
+            PollCurrentState();
         }
 
 
-
-
-
-        private void CheckMatch()
+        private void PollCurrentState()
         {
-            if (wifiMatch || addressMatch)
+            // WiFi
+            wifiState = wifi.ConnectionStatus;
+
+            // if connected find ssid
+            if (wifiState == WifiStatus.Connected)
             {
-                Console.WriteLine("Find and enable proxy");
+                foreach (AccessPoint ap in wifi.GetAccessPoints())
+                {
+                    if (ap.IsConnected)
+                    {
+                        Console.WriteLine("i'm connected to " + ap.Name);
+                        wifiSsid = ap.Name;
+                    }
+                }
+            }
+
+            // Network address
+
+
+            Trigger candidate = null;
+
+            foreach (Trigger trigger in triggers.Triggers)
+            {
+                bool wifiMatch = false, addressMatch = false;
+                if (trigger.IsWiFiTrigger && trigger.WiFiSsid == wifiSsid && wifiState == WifiStatus.Connected)
+                {
+                    Console.WriteLine("found a trigger for this ssid, ");
+                    wifiMatch = true;
+                }
+                //if(trigger.IsAddressTrigger && trigger.AddressMask ==?)
+                //{
+
+                //addressMatch = true;                
+                //}
+
+
+                // check if it doesn't match, and continue search if so
+                if ((trigger.IsWiFiTrigger && trigger.IsAddressTrigger && !(wifiMatch && addressMatch))
+                    || (trigger.IsWiFiTrigger && !wifiMatch)
+                    || (trigger.IsAddressTrigger && !addressMatch)
+                    || !(trigger.IsWiFiTrigger || trigger.IsAddressTrigger))
+                {
+                    Console.WriteLine(trigger.Title + " is no good, continue");
+                    continue;
+                }
+
+                candidate = trigger;
+                break;
+            }
+
+            if (candidate != null)
+            {
+                Console.WriteLine("it seems we have a winner: " + candidate.Title);
+            }
+            else
+            {
+                Console.WriteLine("no trigger found, maybe wanna disable?");
             }
         }
 
@@ -48,41 +102,14 @@ namespace ProxySwitcher
         private void NetworkAddressChanged(object sender, EventArgs e)
         {
             Console.WriteLine("address changed " + e);
-            CheckMatch();
+            PollCurrentState();
         }
 
 
         private void WiFiConnectionChanged(object sender, WifiStatusEventArgs e)
         {
             Console.WriteLine("wifi changed");
-
-            if (e.NewStatus == WifiStatus.Connected)
-            {
-                List<AccessPoint> accessPoints = wifi.GetAccessPoints();
-                foreach (AccessPoint ap in accessPoints)
-                {
-                    if (ap.IsConnected)
-                    {
-                        Console.WriteLine("i'm connected to " + ap.Name);
-                        if (ap.Name == "WLAN-503v")
-                        {
-                            Console.WriteLine("That's mine enable!!!");
-
-                            wifiSsid = ap.Name;
-                            wifiMatch = true;
-
-                            break;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("not for me, disable");
-                wifiMatch = false;
-            }
-
-            CheckMatch();
+            PollCurrentState();
         }
     }
 }

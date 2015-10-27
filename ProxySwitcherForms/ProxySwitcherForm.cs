@@ -19,7 +19,7 @@ namespace ProxySwitcherForms
             InitializeComponent();
 
             model.Proxies.ListChanged += ProxiesOnListChanged;
-            RefreshListBox();
+            RefreshListBoxes();
             RefreshTrayMenu();
             RefreshEnabled();
 
@@ -70,8 +70,8 @@ namespace ProxySwitcherForms
         {
             ProfileForm profileForm = new ProfileForm(profilesListBox.SelectedItem as Profile);
             profileForm.ShowDialog();
-            profilesListBox.Refresh();
-            RefreshListBox();
+            //profilesListBox.Refresh();
+            RefreshListBoxes();
             // todo changed?
         }
 
@@ -79,6 +79,34 @@ namespace ProxySwitcherForms
         {
             Profile selected = profilesListBox.SelectedItem as Profile;
             model.Proxies.Remove(selected);
+        }
+
+        private void triggersAddBtn_Click(object sender, EventArgs e)
+        {
+            var triggerForm = new TriggerForm();
+
+            if (triggerForm.ShowDialog() == DialogResult.OK)
+            {
+                Console.WriteLine("OK exit " + triggerForm.Trigger);
+                TriggerModel.Instance.Triggers.Add(triggerForm.Trigger);
+
+
+            }
+        }
+
+        private void triggersEditBtn_Click(object sender, EventArgs e)
+        {
+            Trigger selected = triggersListBox.SelectedItem as Trigger;
+            
+            var triggerForm = new TriggerForm(selected);
+            triggerForm.ShowDialog();
+            RefreshListBoxes();
+        }
+
+        private void triggersRemoveBtn_Click(object sender, EventArgs e)
+        {
+            Trigger t = triggersListBox.SelectedItem as Trigger;
+            TriggerModel.Instance.Triggers.Remove(t);
         }
 
         private void btnEnabled_Click(object sender, EventArgs e)
@@ -103,11 +131,15 @@ namespace ProxySwitcherForms
             toolStripMenuItemEnabled.Text = label;
         }
 
-        private void RefreshListBox()
+        private void RefreshListBoxes()
         {
             profilesListBox.DataSource = null;
             profilesListBox.DataSource = model.Proxies;
             profilesListBox.DisplayMember = "Title";
+
+            triggersListBox.DataSource = null;
+            triggersListBox.DataSource = TriggerModel.Instance.Triggers;
+            triggersListBox.DisplayMember = "Title";
         }
 
         private void ProxySwitcherForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -115,6 +147,7 @@ namespace ProxySwitcherForms
             Console.WriteLine("saving settings");
             model.SaveProfiles();
 
+            TriggerModel.Instance.SaveTriggers();
             //Settings.Default.
             Settings.Default.Save();
         }
@@ -148,19 +181,6 @@ namespace ProxySwitcherForms
             Console.WriteLine("check changed to " + enableTriggersToolStripMenuItem.Checked);
         }
 
-        private void triggersAddBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void triggersEditBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void triggersRemoveBtn_Click(object sender, EventArgs e)
-        {
-
-        }
+    
     }
 }
