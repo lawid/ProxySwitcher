@@ -1,4 +1,5 @@
-﻿using ProxySwitcher.Triggers;
+﻿using ProxySwitcher;
+using ProxySwitcher.Triggers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,8 @@ namespace ProxySwitcherForms
         {
             InitializeComponent();
 
+            comboBoxProfile.DataSource = ProfileModel.Instance.Proxies;
+            comboBoxProfile.DisplayMember = "Title";
         }
 
         public TriggerForm(Trigger selected) : this()
@@ -34,6 +37,8 @@ namespace ProxySwitcherForms
             textBoxWiFiSsid.Text = Trigger.WiFiSsid;
             checkBoxIsAddressTrigger.Checked = Trigger.IsAddressTrigger;
             textBoxAddressMask.Text = Trigger.AddressMask;
+
+            comboBoxProfile.Text = Trigger.ProfileToActivate;
         }
 
         private void RetrieveData()
@@ -43,6 +48,9 @@ namespace ProxySwitcherForms
             Trigger.WiFiSsid = textBoxWiFiSsid.Text;
             Trigger.IsAddressTrigger = checkBoxIsAddressTrigger.Checked;
             Trigger.AddressMask = textBoxAddressMask.Text;
+
+            Trigger.ProfileToActivate = comboBoxProfile.Text;
+            Console.WriteLine("asdfb " + Trigger.ProfileToActivate);
         }
 
         private void buttonOk_Click(object sender, EventArgs e)

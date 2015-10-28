@@ -42,7 +42,7 @@ namespace ProxySwitcherForms
 
         private void btnLdSys_Click(object sender, EventArgs e)
         {
-            ParseData(new ProxyController().GetCurrentProxy());
+            ParseData(ProxyController.Instance.GetCurrentProxy());
             LoadData();
         }        
 

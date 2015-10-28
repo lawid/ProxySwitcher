@@ -42,6 +42,8 @@ namespace ProxySwitcherForms
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelProfileToActivate = new System.Windows.Forms.Label();
+            this.comboBoxProfile = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // checkBoxIsWiFiTrigger
@@ -69,7 +71,7 @@ namespace ProxySwitcherForms
             // labelConditionNote
             // 
             this.labelConditionNote.AutoSize = true;
-            this.labelConditionNote.Location = new System.Drawing.Point(12, 140);
+            this.labelConditionNote.Location = new System.Drawing.Point(9, 168);
             this.labelConditionNote.Name = "labelConditionNote";
             this.labelConditionNote.Size = new System.Drawing.Size(318, 13);
             this.labelConditionNote.TabIndex = 2;
@@ -128,7 +130,7 @@ namespace ProxySwitcherForms
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(257, 174);
+            this.buttonOk.Location = new System.Drawing.Point(254, 202);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 9;
@@ -138,7 +140,7 @@ namespace ProxySwitcherForms
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(338, 174);
+            this.buttonCancel.Location = new System.Drawing.Point(335, 202);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 10;
@@ -146,11 +148,30 @@ namespace ProxySwitcherForms
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // labelProfileToActivate
+            // 
+            this.labelProfileToActivate.AutoSize = true;
+            this.labelProfileToActivate.Location = new System.Drawing.Point(16, 138);
+            this.labelProfileToActivate.Name = "labelProfileToActivate";
+            this.labelProfileToActivate.Size = new System.Drawing.Size(89, 13);
+            this.labelProfileToActivate.TabIndex = 11;
+            this.labelProfileToActivate.Text = "Profile to activate";
+            // 
+            // comboBoxProfile
+            // 
+            this.comboBoxProfile.FormattingEnabled = true;
+            this.comboBoxProfile.Location = new System.Drawing.Point(128, 135);
+            this.comboBoxProfile.Name = "comboBoxProfile";
+            this.comboBoxProfile.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxProfile.TabIndex = 12;
+            // 
             // TriggerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 206);
+            this.ClientSize = new System.Drawing.Size(421, 236);
+            this.Controls.Add(this.comboBoxProfile);
+            this.Controls.Add(this.labelProfileToActivate);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.textBoxTitle);
@@ -183,6 +204,7 @@ namespace ProxySwitcherForms
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
-       
+        private System.Windows.Forms.Label labelProfileToActivate;
+        private System.Windows.Forms.ComboBox comboBoxProfile;
     }
 }

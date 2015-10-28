@@ -49,6 +49,14 @@ namespace ProxySwitcher
             Settings.Default.Save();
         }
 
+        public Profile FindProxyByTitle(string title)
+        {
+            foreach (var proxy in Proxies)
+            {
+                if (proxy.Title == title) return proxy;
+            }
+            return null;
+        }
 
     }
 }

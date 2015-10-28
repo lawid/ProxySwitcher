@@ -10,17 +10,19 @@ namespace ProxySwitcher
 {
     public class ProxyController
     {
+        private static ProxyController _instance = new ProxyController();
+        public static ProxyController Instance { get { return _instance; } }
 
         [DllImport("wininet.dll")]
-        public static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int dwBufferLength);
-        public const int INTERNET_OPTION_SETTINGS_CHANGED = 39;
-        public const int INTERNET_OPTION_REFRESH = 37;
-        static bool settingsReturn, refreshReturn;
-        const string KEY_PROXY_ENABLE = "ProxyEnable", KEY_PROXY_SERVER = "ProxyServer";
+        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int dwBufferLength);
+        private const int INTERNET_OPTION_SETTINGS_CHANGED = 39;
+        private const int INTERNET_OPTION_REFRESH = 37;
+        private static bool settingsReturn, refreshReturn;
+        private const string KEY_PROXY_ENABLE = "ProxyEnable", KEY_PROXY_SERVER = "ProxyServer";
 
         private RegistryKey registry;
 
-        public ProxyController()
+        private ProxyController()
         {
             registry = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings", true);
         }
@@ -72,5 +74,9 @@ namespace ProxySwitcher
         }
 
 
+        public bool ActivateProxy(Profile proxy)
+        {
+            return SetProxy(proxy.Proxy) && SetEnabled(true);
+        }
     }
 }

@@ -91,7 +91,7 @@
             this.proxyEnableBtn.TabIndex = 2;
             this.proxyEnableBtn.Text = "Enable/Disable";
             this.proxyEnableBtn.UseVisualStyleBackColor = true;
-            this.proxyEnableBtn.Click += new System.EventHandler(this.btnEnabled_Click);
+            this.proxyEnableBtn.Click += new System.EventHandler(this.ToggleEnabled);
             // 
             // trayIcon
             // 
@@ -112,7 +112,7 @@
             this.toolStripSeparator2,
             this.toolStripMenuItemEnabled});
             this.trayRightClickMenu.Name = "contextMenuStrip1";
-            this.trayRightClickMenu.Size = new System.Drawing.Size(181, 82);
+            this.trayRightClickMenu.Size = new System.Drawing.Size(181, 104);
             // 
             // toolStripMenuItem1
             // 
@@ -157,7 +157,7 @@
             this.toolStripMenuItemEnabled.Name = "toolStripMenuItemEnabled";
             this.toolStripMenuItemEnabled.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemEnabled.Text = "Enable/Disable";
-            this.toolStripMenuItemEnabled.Click += new System.EventHandler(this.toolStripMenuItemEnabled_Click);
+            this.toolStripMenuItemEnabled.Click += new System.EventHandler(this.ToggleEnabled);
             // 
             // triggersListBox
             // 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
 
 namespace ProxySwitcher.Triggers
 {
@@ -35,28 +36,39 @@ namespace ProxySwitcher.Triggers
             PollCurrentState();
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void PollCurrentState()
         {
-            // WiFi
-            wifiState = wifi.ConnectionStatus;
 
-            // if connected find ssid
-            if (wifiState == WifiStatus.Connected)
+            try
             {
-                foreach (AccessPoint ap in wifi.GetAccessPoints())
+                // WiFi
+                wifiState = wifi.ConnectionStatus;
+
+                // if connected find ssid
+                if (wifiState == WifiStatus.Connected)
                 {
-                    if (ap.IsConnected)
+                    foreach (AccessPoint ap in wifi.GetAccessPoints())
                     {
-                        Console.WriteLine("i'm connected to " + ap.Name);
-                        wifiSsid = ap.Name;
+                        if (ap.IsConnected)
+                        {
+                            Console.WriteLine("i'm connected to " + ap.Name);
+                            wifiSsid = ap.Name;
+                        }
                     }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("cant check wifi state");
+            }
+            
 
             // Network address
 
 
+
+            // Evaluate
             Trigger candidate = null;
 
             foreach (Trigger trigger in triggers.Triggers)
@@ -88,9 +100,21 @@ namespace ProxySwitcher.Triggers
                 break;
             }
 
+            // Enable if candidate found
             if (candidate != null)
             {
                 Console.WriteLine("it seems we have a winner: " + candidate.Title);
+
+                var proxy = profiles.FindProxyByTitle(candidate.ProfileToActivate);
+                if(proxy != null)
+                {
+                    bool activated = ProxyController.Instance.ActivateProxy(proxy);
+                    FireOnProxyTriggered(proxy, "trigger: " + candidate.Title + " activated: " + activated);
+                }
+                else
+                {
+                    Console.WriteLine("proxy not found: " + candidate.ProfileToActivate);
+                }
             }
             else
             {
@@ -98,6 +122,7 @@ namespace ProxySwitcher.Triggers
             }
         }
 
+      
 
         private void NetworkAddressChanged(object sender, EventArgs e)
         {
@@ -110,6 +135,11 @@ namespace ProxySwitcher.Triggers
         {
             Console.WriteLine("wifi changed");
             PollCurrentState();
+        }
+
+        private void FireOnProxyTriggered(Profile proxy, string reason)
+        {
+            if (OnProxyTriggered != null) OnProxyTriggered(proxy, reason);
         }
     }
 }
