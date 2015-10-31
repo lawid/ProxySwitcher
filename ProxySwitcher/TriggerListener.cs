@@ -20,9 +20,7 @@ namespace ProxySwitcher.Triggers
 
 
 
-
-        private WifiStatus wifiState;
-        private string wifiSsid;
+        
 
         public TriggerListener()
         {
@@ -33,12 +31,13 @@ namespace ProxySwitcher.Triggers
             // Listen to address changes
             NetworkChange.NetworkAddressChanged += new NetworkAddressChangedEventHandler(NetworkAddressChanged);
             Console.WriteLine("Listening...");
-            PollCurrentState();
+            PollCurrentState(wifi.ConnectionStatus);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private void PollCurrentState()
+        private void PollCurrentState(WifiStatus wifiState)
         {
+            string wifiSsid = "";
 
             try
             {
@@ -127,14 +126,14 @@ namespace ProxySwitcher.Triggers
         private void NetworkAddressChanged(object sender, EventArgs e)
         {
             Console.WriteLine("address changed " + e);
-            PollCurrentState();
+            PollCurrentState(wifi.ConnectionStatus);
         }
 
 
         private void WiFiConnectionChanged(object sender, WifiStatusEventArgs e)
         {
             Console.WriteLine("wifi changed");
-            PollCurrentState();
+            PollCurrentState(e.NewStatus);
         }
 
         private void FireOnProxyTriggered(Profile proxy, string reason)
