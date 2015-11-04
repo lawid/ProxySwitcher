@@ -26,6 +26,11 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://lawid.github.io/ProxySwitcher/</InstallUrl>
     <UpdateUrl>http://lawid.github.io/ProxySwitcher/</UpdateUrl>
+    <SupportUrl>https://github.com/lawid/ProxySwitcher/wiki</SupportUrl>
+    <ErrorReportUrl>https://github.com/lawid/ProxySwitcher/issues</ErrorReportUrl>
+    <ProductName>ProxySwitcher GUI</ProductName>
+    <PublisherName>lawid</PublisherName>
+    <SuiteName>ProxySwitcher</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
@@ -60,7 +65,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>ldean_key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
