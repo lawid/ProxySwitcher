@@ -59,8 +59,9 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enableTriggersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.startupButton = new System.Windows.Forms.Button();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.trayRightClickMenu.SuspendLayout();
             this.triggersGroupBox.SuspendLayout();
             this.triggersTableLayoutPanel.SuspendLayout();
@@ -70,7 +71,8 @@
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // profileSetBtn
@@ -112,7 +114,7 @@
             this.toolStripSeparator2,
             this.toolStripMenuItemEnabled});
             this.trayRightClickMenu.Name = "contextMenuStrip1";
-            this.trayRightClickMenu.Size = new System.Drawing.Size(181, 104);
+            this.trayRightClickMenu.Size = new System.Drawing.Size(181, 82);
             // 
             // toolStripMenuItem1
             // 
@@ -166,16 +168,16 @@
             this.triggersListBox.Location = new System.Drawing.Point(3, 3);
             this.triggersListBox.Name = "triggersListBox";
             this.triggersTableLayoutPanel.SetRowSpan(this.triggersListBox, 2);
-            this.triggersListBox.Size = new System.Drawing.Size(183, 269);
+            this.triggersListBox.Size = new System.Drawing.Size(107, 269);
             this.triggersListBox.TabIndex = 9;
             // 
             // triggersGroupBox
             // 
             this.triggersGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.triggersGroupBox.Controls.Add(this.triggersTableLayoutPanel);
-            this.triggersGroupBox.Location = new System.Drawing.Point(303, 27);
+            this.triggersGroupBox.Location = new System.Drawing.Point(222, 27);
             this.triggersGroupBox.Name = "triggersGroupBox";
-            this.triggersGroupBox.Size = new System.Drawing.Size(285, 294);
+            this.triggersGroupBox.Size = new System.Drawing.Size(209, 294);
             this.triggersGroupBox.TabIndex = 10;
             this.triggersGroupBox.TabStop = false;
             this.triggersGroupBox.Text = "Triggers";
@@ -194,7 +196,7 @@
             this.triggersTableLayoutPanel.RowCount = 2;
             this.triggersTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.triggersTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.triggersTableLayoutPanel.Size = new System.Drawing.Size(279, 275);
+            this.triggersTableLayoutPanel.Size = new System.Drawing.Size(203, 275);
             this.triggersTableLayoutPanel.TabIndex = 10;
             // 
             // flowLayoutPanel1
@@ -205,7 +207,7 @@
             this.flowLayoutPanel1.Controls.Add(this.triggersRemoveBtn);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(192, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(116, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(84, 131);
             this.flowLayoutPanel1.TabIndex = 10;
@@ -245,7 +247,7 @@
             this.groupBoxProfiles.Controls.Add(this.tableLayoutPanelProfiles);
             this.groupBoxProfiles.Location = new System.Drawing.Point(12, 27);
             this.groupBoxProfiles.Name = "groupBoxProfiles";
-            this.groupBoxProfiles.Size = new System.Drawing.Size(285, 294);
+            this.groupBoxProfiles.Size = new System.Drawing.Size(204, 294);
             this.groupBoxProfiles.TabIndex = 12;
             this.groupBoxProfiles.TabStop = false;
             this.groupBoxProfiles.Text = "Profiles";
@@ -265,7 +267,7 @@
             this.tableLayoutPanelProfiles.RowCount = 2;
             this.tableLayoutPanelProfiles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelProfiles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelProfiles.Size = new System.Drawing.Size(279, 275);
+            this.tableLayoutPanelProfiles.Size = new System.Drawing.Size(198, 275);
             this.tableLayoutPanelProfiles.TabIndex = 1;
             // 
             // profilesListBox
@@ -275,7 +277,7 @@
             this.profilesListBox.Location = new System.Drawing.Point(3, 3);
             this.profilesListBox.Name = "profilesListBox";
             this.tableLayoutPanelProfiles.SetRowSpan(this.profilesListBox, 2);
-            this.profilesListBox.Size = new System.Drawing.Size(183, 269);
+            this.profilesListBox.Size = new System.Drawing.Size(102, 269);
             this.profilesListBox.TabIndex = 5;
             // 
             // flowLayoutPanel2
@@ -286,7 +288,7 @@
             this.flowLayoutPanel2.Controls.Add(this.profileRemoveBtn);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(192, 3);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(111, 3);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(84, 131);
             this.flowLayoutPanel2.TabIndex = 6;
@@ -327,7 +329,7 @@
             this.flowLayoutPanel3.Controls.Add(this.profileSetBtn);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(192, 140);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(111, 140);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(84, 132);
             this.flowLayoutPanel3.TabIndex = 7;
@@ -338,7 +340,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip.Location = new System.Drawing.Point(0, 331);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(629, 22);
+            this.statusStrip.Size = new System.Drawing.Size(574, 22);
             this.statusStrip.TabIndex = 13;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -350,37 +352,47 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(629, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(574, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // settingsToolStripMenuItem
+            // groupBox1
             // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.enableTriggersToolStripMenuItem});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "Settings";
+            this.groupBox1.Controls.Add(this.flowLayoutPanel4);
+            this.groupBox1.Location = new System.Drawing.Point(437, 28);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(129, 293);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Settings";
             // 
-            // enableTriggersToolStripMenuItem
+            // startupButton
             // 
-            this.enableTriggersToolStripMenuItem.Checked = true;
-            this.enableTriggersToolStripMenuItem.CheckOnClick = true;
-            this.enableTriggersToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.enableTriggersToolStripMenuItem.Name = "enableTriggersToolStripMenuItem";
-            this.enableTriggersToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.enableTriggersToolStripMenuItem.Text = "Use Triggers";
-            this.enableTriggersToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableTriggersToolStripMenuItem_CheckedChanged);
+            this.startupButton.Location = new System.Drawing.Point(3, 3);
+            this.startupButton.Name = "startupButton";
+            this.startupButton.Size = new System.Drawing.Size(117, 23);
+            this.startupButton.TabIndex = 0;
+            this.startupButton.Text = "Register startup";
+            this.startupButton.UseVisualStyleBackColor = true;
+            this.startupButton.Click += new System.EventHandler(this.startupButton_Click);
+            // 
+            // flowLayoutPanel4
+            // 
+            this.flowLayoutPanel4.Controls.Add(this.startupButton);
+            this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(123, 274);
+            this.flowLayoutPanel4.TabIndex = 1;
             // 
             // ProxySwitcherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 353);
+            this.ClientSize = new System.Drawing.Size(574, 353);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBoxProfiles);
@@ -401,8 +413,8 @@
             this.flowLayoutPanel3.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.flowLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -438,8 +450,9 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enableTriggersToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.Button startupButton;
     }
 }
 

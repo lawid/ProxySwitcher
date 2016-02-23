@@ -1,23 +1,14 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ProxySwitcher.Properties;
-using ProxySwitcher.Triggers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProxySwitcher.Triggers
 {
     public class TriggerModel
     {
-        private static TriggerModel _instance = new TriggerModel();
-        public static TriggerModel Instance { get { return _instance; } }
-
-        private BindingList<Trigger> _triggers = new BindingList<Trigger>();
-        public BindingList<Trigger> Triggers { get { return _triggers; } }
+        public static TriggerModel Instance { get; } = new TriggerModel();
+        public BindingList<Trigger> Triggers { get; } = new BindingList<Trigger>();
 
         private TriggerModel()
         {
@@ -27,7 +18,7 @@ namespace ProxySwitcher.Triggers
                 foreach (string trigger in triggers)
                 {
                     Trigger t = JsonConvert.DeserializeObject<Trigger>(trigger);
-                    _triggers.Add(t);
+                    Triggers.Add(t);
                 }
             }
         }

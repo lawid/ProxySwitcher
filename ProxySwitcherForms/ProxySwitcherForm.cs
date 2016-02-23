@@ -1,11 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
 using ProxySwitcher;
 using ProxySwitcherForms.Properties;
 using ProxySwitcher.Triggers;
 using System.Runtime.CompilerServices;
+using static System.Console;
 
 namespace ProxySwitcherForms
 {
@@ -14,6 +18,9 @@ namespace ProxySwitcherForms
         private ProfileModel model = ProfileModel.Instance;
         private ProxyController ctrl = ProxyController.Instance;
         private TriggerListener triggers = new TriggerListener();
+        
+        private StartupController startupController = new StartupController();
+        public bool VisibilityAllowed = true;
 
         public ProxySwitcherForm()
         {
@@ -23,10 +30,13 @@ namespace ProxySwitcherForms
             RefreshListBoxes();
             RefreshTrayMenu();
             RefreshEnabled();
+            RefreshSettings();
 
 
             triggers.OnProxyTriggered += Triggers_OnProxyTriggered;
         }
+
+        
 
         private void Triggers_OnProxyTriggered(Profile profile, string reason)
         {
@@ -49,22 +59,11 @@ namespace ProxySwitcherForms
 
         }
 
-
-        private void Read_Click(object sender, EventArgs e)
-        {
-            ctrl.PrintCurrentSettings();
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(model.Proxies.First()));
-        }
-
         private void Set_Click(object sender, EventArgs e)
         {
             Profile selected = profilesListBox.SelectedItem as Profile;
             ctrl.SetProxy(selected.Proxy);
-        }
-
-        private void Tray_Click(object sender, EventArgs e)
-        {
-            //notifyIcon.ShowBalloonTip(3000);
+            RefreshListBoxes();
         }
 
         private void addBtn_Click(object sender, EventArgs e)
@@ -101,7 +100,7 @@ namespace ProxySwitcherForms
 
             if (triggerForm.ShowDialog() == DialogResult.OK)
             {
-                Console.WriteLine("OK exit " + triggerForm.Trigger);
+                WriteLine("OK exit " + triggerForm.Trigger);
                 TriggerModel.Instance.Triggers.Add(triggerForm.Trigger);
 
 
@@ -132,16 +131,28 @@ namespace ProxySwitcherForms
         [MethodImpl(MethodImplOptions.Synchronized)]
         private void RefreshEnabled()
         {
-            string label = (ctrl.IsEnabled()) ? "Disable" : "Enable";
+            string label;
+            Icon icon;
+            if (ctrl.IsEnabled())
+            {
+                label = "Disable";
+                icon = Resources.world;
+            }
+            else
+            {
+                label = "Enable";
+                icon = Resources.world_delete;
+            }
             proxyEnableBtn.Text = label;
             toolStripMenuItemEnabled.Text = label;
+            trayIcon.Icon = icon;
         }
 
         private void RefreshListBoxes()
         {
             profilesListBox.DataSource = null;
             profilesListBox.DataSource = model.Proxies;
-            profilesListBox.DisplayMember = "Title";
+            profilesListBox.DisplayMember = "DisplayView";
 
             triggersListBox.DataSource = null;
             triggersListBox.DataSource = TriggerModel.Instance.Triggers;
@@ -150,17 +161,17 @@ namespace ProxySwitcherForms
 
         private void ProxySwitcherForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Console.WriteLine("saving settings");
+            WriteLine("saving settings");
             model.SaveProfiles();
 
             TriggerModel.Instance.SaveTriggers();
-            //Settings.Default.
             Settings.Default.Save();
         }
 
 
         private void notifyIcon1_Click(object sender, EventArgs e)
         {
+            
             var me = e as MouseEventArgs;
             if (me != null && me.Button == MouseButtons.Left)
             {
@@ -182,11 +193,32 @@ namespace ProxySwitcherForms
             Application.Exit();
         }
 
-        private void enableTriggersToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        private void RefreshSettings()
         {
-            Console.WriteLine("check changed to " + enableTriggersToolStripMenuItem.Checked);
+            startupButton.Text = startupController.CheckStartupEntry() ? "Deregister startup" : "Register startup";
         }
 
-
+        private void startupButton_Click(object sender, EventArgs e)
+        {
+            if (startupController.CheckStartupEntry()) startupController.RemoveStartupEntry();
+            else startupController.CreateStartupEntry();
+            RefreshSettings();
+        }
+        
+        /// <summary>
+        /// Intercept showing window once and allow subsequent visibility changes
+        /// </summary>
+        /// <param name="value"></param>
+        protected override void SetVisibleCore(bool value)
+        {
+            if (!VisibilityAllowed)
+            {
+                value = false;
+                if (!this.IsHandleCreated) CreateHandle();
+            }
+            base.SetVisibleCore(value);
+            // Allow visibility from now on
+            VisibilityAllowed = true;
+        }
     }
 }

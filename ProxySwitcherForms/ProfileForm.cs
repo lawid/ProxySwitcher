@@ -1,12 +1,5 @@
 ﻿using ProxySwitcher;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProxySwitcherForms
@@ -25,7 +18,6 @@ namespace ProxySwitcherForms
 
         public ProfileForm()
         {
-
             InitializeComponent();
         }
 
@@ -43,12 +35,12 @@ namespace ProxySwitcherForms
         private void btnLdSys_Click(object sender, EventArgs e)
         {
             ParseData(ProxyController.Instance.GetCurrentProxy());
+            mProfile.Title = "System";
             LoadData();
         }        
 
         private void checkBoxUseForAllProtocols_CheckedChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("checkedchanged");
             unifiedProtocolProxy = checkBoxUseForAllProtocols.Checked;
             UpdateUnifiedFields();
         }
@@ -162,28 +154,6 @@ namespace ProxySwitcherForms
                             break;
                     }
                 }
-
-                
-                //if (parts.Length >= 3)
-                //{
-                //    httpProxy = parts[1];
-                //    httpPort = parts[2];
-                //}
-                //if (parts.Length >= 6)
-                //{
-                //    httpsProxy = parts[4];
-                //    httpsPort = parts[5];
-                //}
-                //if (parts.Length >= 9)
-                //{
-                //    ftpProxy = parts[7];
-                //    ftpPort = parts[8];
-                //}
-                //if (parts.Length >= 12)
-                //{
-                //    socksProxy = parts[10];
-                //    socksPort = parts[11];
-                //}
             }
         }
 
@@ -214,7 +184,5 @@ namespace ProxySwitcherForms
         {
             return mProfile;
         }
-
-        
     }
 }

@@ -1,9 +1,5 @@
-﻿
-using ProxySwitcher.Triggers;
-using SimpleWifi;
+﻿using SimpleWifi;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 
@@ -17,10 +13,6 @@ namespace ProxySwitcher.Triggers
         private ProfileModel profiles = ProfileModel.Instance;
         private TriggerModel triggers = TriggerModel.Instance;
         private Wifi wifi;
-
-
-
-        
 
         public TriggerListener()
         {
@@ -57,7 +49,7 @@ namespace ProxySwitcher.Triggers
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("cant check wifi state");
             }
@@ -108,7 +100,7 @@ namespace ProxySwitcher.Triggers
                 if(proxy != null)
                 {
                     bool activated = ProxyController.Instance.ActivateProxy(proxy);
-                    FireOnProxyTriggered(proxy, "trigger: " + candidate.Title + " activated: " + activated);
+                    OnProxyTriggered?.Invoke(proxy, "trigger: " + candidate.Title + " activated: " + activated);
                 }
                 else
                 {
@@ -135,11 +127,5 @@ namespace ProxySwitcher.Triggers
             Console.WriteLine("wifi changed");
             PollCurrentState(e.NewStatus);
         }
-
-        private void FireOnProxyTriggered(Profile proxy, string reason)
-        {
-            if (OnProxyTriggered != null) OnProxyTriggered(proxy, reason);
-        }
     }
 }
-

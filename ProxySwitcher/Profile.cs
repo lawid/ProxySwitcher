@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProxySwitcher
+﻿namespace ProxySwitcher
 {
     public class Profile
     {
         public string Title { get; set; }
         public string Proxy { get; set; }
+
+        public string DisplayView
+        {
+            get
+            {
+                var label = Title;
+                if (ProxyController.Instance.GetCurrentProxy() == Proxy) label += " (current)";
+                return label;
+            }
+        }
     }
 }
