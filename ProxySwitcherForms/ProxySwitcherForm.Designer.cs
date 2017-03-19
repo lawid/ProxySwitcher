@@ -34,10 +34,6 @@
             this.proxyEnableBtn = new System.Windows.Forms.Button();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayRightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemEnabled = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,8 +56,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.startupButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.startupButton = new System.Windows.Forms.Button();
             this.trayRightClickMenu.SuspendLayout();
             this.triggersGroupBox.SuspendLayout();
             this.triggersTableLayoutPanel.SuspendLayout();
@@ -104,60 +100,34 @@
             this.trayIcon.Text = "ProxySwitcher";
             this.trayIcon.Visible = true;
             this.trayIcon.Click += new System.EventHandler(this.notifyIcon1_Click);
+            this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
             // 
             // trayRightClickMenu
             // 
             this.trayRightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripSeparator1,
-            this.toolStripMenuItemExit,
+            this.toolStripMenuItemEnabled,
             this.toolStripSeparator2,
-            this.toolStripMenuItemEnabled});
+            this.toolStripMenuItemExit});
             this.trayRightClickMenu.Name = "contextMenuStrip1";
-            this.trayRightClickMenu.Size = new System.Drawing.Size(181, 82);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem3.Text = "toolStripMenuItem3";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem4.Text = "toolStripMenuItem4";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.trayRightClickMenu.Size = new System.Drawing.Size(153, 76);
+            this.trayRightClickMenu.Opening += new System.ComponentModel.CancelEventHandler(this.trayRightClickMenu_Opening);
             // 
             // toolStripMenuItemExit
             // 
             this.toolStripMenuItemExit.Name = "toolStripMenuItemExit";
-            this.toolStripMenuItemExit.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemExit.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItemExit.Text = "Exit";
             this.toolStripMenuItemExit.Click += new System.EventHandler(this.toolStripMenuItemExit_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // toolStripMenuItemEnabled
             // 
             this.toolStripMenuItemEnabled.Name = "toolStripMenuItemEnabled";
-            this.toolStripMenuItemEnabled.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemEnabled.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItemEnabled.Text = "Enable/Disable";
             this.toolStripMenuItemEnabled.Click += new System.EventHandler(this.ToggleEnabled);
             // 
@@ -368,6 +338,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
+            // flowLayoutPanel4
+            // 
+            this.flowLayoutPanel4.Controls.Add(this.startupButton);
+            this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(123, 274);
+            this.flowLayoutPanel4.TabIndex = 1;
+            // 
             // startupButton
             // 
             this.startupButton.Location = new System.Drawing.Point(3, 3);
@@ -377,15 +356,6 @@
             this.startupButton.Text = "Register startup";
             this.startupButton.UseVisualStyleBackColor = true;
             this.startupButton.Click += new System.EventHandler(this.startupButton_Click);
-            // 
-            // flowLayoutPanel4
-            // 
-            this.flowLayoutPanel4.Controls.Add(this.startupButton);
-            this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(123, 274);
-            this.flowLayoutPanel4.TabIndex = 1;
             // 
             // ProxySwitcherForm
             // 
@@ -403,6 +373,7 @@
             this.ShowInTaskbar = false;
             this.Text = "ProxySwitcher";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProxySwitcherForm_FormClosing);
+            this.Load += new System.EventHandler(this.ProxySwitcherForm_Load);
             this.trayRightClickMenu.ResumeLayout(false);
             this.triggersGroupBox.ResumeLayout(false);
             this.triggersTableLayoutPanel.ResumeLayout(false);
@@ -425,11 +396,7 @@
         private System.Windows.Forms.Button proxyEnableBtn;
         private System.Windows.Forms.NotifyIcon trayIcon;
         private System.Windows.Forms.ContextMenuStrip trayRightClickMenu;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEnabled;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ListBox triggersListBox;

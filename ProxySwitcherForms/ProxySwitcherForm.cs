@@ -34,9 +34,16 @@ namespace ProxySwitcherForms
 
 
             triggers.OnProxyTriggered += Triggers_OnProxyTriggered;
+            this.SizeChanged += ProxySwitcherForm_SizeEventHandler;
         }
 
-        
+        private void ProxySwitcherForm_SizeEventHandler(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.Visible = false;
+            }
+        }
 
         private void Triggers_OnProxyTriggered(Profile profile, string reason)
         {
@@ -219,6 +226,21 @@ namespace ProxySwitcherForms
             base.SetVisibleCore(value);
             // Allow visibility from now on
             VisibilityAllowed = true;
+        }
+
+        private void trayRightClickMenu_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void ProxySwitcherForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }
