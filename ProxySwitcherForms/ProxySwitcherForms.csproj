@@ -24,8 +24,8 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://lawid.github.io/ProxySwitcher/</InstallUrl>
-    <UpdateUrl>http://lawid.github.io/ProxySwitcher/</UpdateUrl>
+    <InstallUrl>https://lawid.azurewebsites.net/ProxySwitcher/</InstallUrl>
+    <UpdateUrl>https://lawid.azurewebsites.net/ProxySwitcher/</UpdateUrl>
     <SupportUrl>https://github.com/lawid/ProxySwitcher/wiki</SupportUrl>
     <ErrorReportUrl>https://github.com/lawid/ProxySwitcher/issues</ErrorReportUrl>
     <ProductName>ProxySwitcher GUI</ProductName>
